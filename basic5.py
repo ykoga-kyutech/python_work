@@ -13,8 +13,12 @@ fname_input = "13tokyo\\13TOKYO.CSV"
 fname_output = "basic_output\\basic5_output.csv"
 
 # get input number
-print("Please input N > ")
-input = int(sys.stdin.readline())
+if len(sys.argv) == 2:
+    input = int(sys.argv[1])
+else:
+    print("Example: ")
+    print("python basic5 2")
+    sys.exit(0)
 
 with open(fname_input, "r") as fin:
     with open(fname_output, "w") as fout:

@@ -8,6 +8,14 @@ __author__ = 'tie304184'
 """
 import sys
 
+def camma_plus(s):
+    """
+    Add "," to the given string on last position
+    :param s:
+    :return:
+    """
+    return s+","
+
 # filenames
 fname_input = "13tokyo\\13TOKYO.CSV"
 fname_output = "basic_output\\basic8_output.csv"
@@ -19,8 +27,9 @@ with open(fname_input, "r") as fin:
             lines.append(line.split(","))
         # sort
         sortlist = sorted(lines, key=lambda x:x[1])
-        # write
+
+        # get each line, and write it to the file
         for line in sortlist:
-            for str in line:
-                line = str(line)
-                fout.write(str+",") # TODO remove "," if the str is the last one
+            new_line = map(camma_plus, line[:-1]) # don't add "," to the last element
+            fout.writelines(new_line)
+            fout.write(line[-1])

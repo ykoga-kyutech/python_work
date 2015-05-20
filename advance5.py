@@ -14,6 +14,7 @@ import sys
 import grounabi_ouen_api as go_api
 import gnavi_ouen_entity as oe
 import webbrowser
+from jinja2 import Environment, FileSystemLoader
 
 if __name__ == '__main__':
 
@@ -21,6 +22,11 @@ if __name__ == '__main__':
   keyid = "b05b70882f1fca7ba0758afcba03a146"
   # エンドポイントURL
   url_ouen = "http://api.gnavi.co.jp/ouen/ver1/PhotoSearch/"
+  # 出力HTML
+  output_html = "advance5.html"
+  # 出力HTMLのテンプレート
+  output_template = "advance5_template.html"
+
   # 店舗名をコマンドライン引数から貰う
   if len(sys.argv) == 2 :
     name = sys.argv[1]
@@ -43,46 +49,38 @@ if __name__ == '__main__':
   # get result
   result_ouen = api_ouen.execute()
 
+  # decode
   data_ouen = api_ouen.decode2JSON(result_ouen)
+
+  # show result
+  """
   if result_ouen is not None:
     api_ouen.showResult(data_ouen)
   else:
     print("APIアクセスに失敗しました。")
+  """
 
+  # TODO should move it to the ouen API ?
   entity = oe.GNaviOuenEntity()
   entity.setEntity(data_ouen)
 
-  f = open('advance5_result.html','w')
+  #テンプレートファイルを指定
+  env = Environment(loader=FileSystemLoader('./', encoding='utf8'))
+  tpl = env.get_template(output_template)
 
-  # header
-  message = """<html>
-  <head>
-  <title>JSONのデータを表示する</title>
-  <script type="text/javascript">
-   document.write("<p> JavaScriptテスト</p>")
-  </script>
-  </head>
-  """
+  #テンプレートへ挿入するデータの作成
+  title = name+"の検索結果"
 
-  # body
-  message +="""
-  <body>
-  <h1>検索結果情報</h1>
-  <p>ああああ</p>
-  """
-  image_w  = 150
-  image_h = 60
-
-  # write name, link, image, ouen
+  shop_list = []
   for name, shop_url, image_url, comment in zip(entity.name, entity.shop_url, entity.image_url, entity.comment):
-        print(name, shop_url, image_url, comment)
-        #message += "<p>店舗名: "++"</p>"
-        message += "<a href="+image_url+">"+name+"</a></br>"
-        message += "<img src="+shop_url+" width="+str(image_w)+" height="+str(image_h)+"></br>"
-  message +="""
-  </body>
-  </html>"""
+        shop_list.append({'title':name, 'comment':comment, 'shop_url':shop_url, 'image':image_url})
 
-  f.write(message)
-  f.close()
-  webbrowser.open_new_tab('advance5_result.html')
+  #テンプレートへの挿入
+  html = tpl.render({'title':title, 'shop_list':shop_list})
+
+  #ファイルへの書き込み
+  tmpfile = open(output_html, 'w') #書き込みモードで開く
+  tmpfile.write(html) #.encode('utf-8')
+  tmpfile.close()
+
+  webbrowser.open_new_tab(output_html)

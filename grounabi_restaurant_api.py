@@ -9,10 +9,10 @@ class GrounabiRestaurantAPI(base.GrounabiRestaurantAPIBase):
   def __init__(self, url, apikey):
     super(GrounabiRestaurantAPI, self).__init__(url, apikey)
 
-  def showResult(self, result):
+  def showResult(self, data):
 
     # 取得した結果を解析
-    data = json.loads( result.read().decode('utf-8') )
+    #data = json.loads( result.read().decode('utf-8') )
 
     # エラーの場合
     if "error" in data :
@@ -47,20 +47,28 @@ class GrounabiRestaurantAPI(base.GrounabiRestaurantAPIBase):
     # レストランデータ取得
     for rest in data["rest"] :
       line                 = []
-      id                   = ""
+      url                  = ""
+      shop_image_url       = ""
       name                 = ""
       access_line          = ""
       access_station       = ""
       access_walk          = ""
       code_category_name_s = []
-      # 店舗番号
-      if "id" in rest and self.is_str( rest["id"] ) :
-        id = rest["id"]
-      line.append( id )
       # 店舗名
       if "name" in rest and self.is_str( rest["name"] ) :
         name = u"{0}".format( rest["name"] )
       line.append( name )
+      # 店舗URL
+      if "url" in rest and self.is_str( rest["url"] ) :
+        url = rest["url"]
+      line.append( url )
+      # 店舗画像URL
+      if "image_url" in rest :
+        access = rest["image_url"]
+        if "shop_image1" in access and self.is_str( access["shop_image1"] ) :
+          shop_image_url = u"{0}".format( access["shop_image1"] )
+      line.append( shop_image_url )
+      # アクセス
       if "access" in rest :
         access = rest["access"]
         # 最寄の路線

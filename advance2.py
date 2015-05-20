@@ -32,7 +32,7 @@ if __name__ == '__main__':
         sys.exit(0)
       else:
         # 店舗名をコマンドライン引数から貰う（日本語/英語）
-        c
+        name = sys.argv[1]
         name.encode('ascii', 'strict')
         # ぐるなびレストランAPIアクセス用（英語）
         api = gb_api.GrounabiBilingualRestaurantAPI(urlname_bilin_restsearch, keyid)
@@ -51,10 +51,10 @@ if __name__ == '__main__':
   api.setQuery(query)
 
   # get result
-  result = api.execute()
+  data = api.execute()
 
   # show result
-  if result is not None:
-    api.showResult(result)
+  if data is not None:
+    api.showResult(api.decode2JSON(data))
   else:
     print("APIアクセスに失敗しました。")

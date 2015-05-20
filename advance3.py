@@ -42,10 +42,10 @@ if __name__ == '__main__':
   api.setQuery(query)
 
   # get result
-  result = api.execute()
+  data = api.execute()
 
   # show result
-  if result is not None:
-    api.showResult(result)
+  if data is not None:
+    api.showResult(api.decode2JSON(data))
   else:
     print("APIアクセスに失敗しました。")

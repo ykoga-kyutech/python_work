@@ -5,6 +5,7 @@ import urllib
 import urllib.request
 import urllib.parse
 import sys
+import json
 
 class GrounabiRestaurantAPIBase(object):
 
@@ -47,6 +48,9 @@ class GrounabiRestaurantAPIBase(object):
       return result
     except ValueError :
       return None
+
+  def decode2JSON(self, result):
+    return json.loads( result.read().decode('utf-8') )
 
   ####
   # 変数の型が文字列かどうかチェック

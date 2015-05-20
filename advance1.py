@@ -38,6 +38,6 @@ if __name__ == '__main__':
 
   # show result
   if result is not None:
-    api.showResult(result)
+    api.showResult(api.decode2JSON(result))
   else:
     print("APIアクセスに失敗しました。")

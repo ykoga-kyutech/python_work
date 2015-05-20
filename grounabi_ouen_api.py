@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __author__ = 'tie304184'
 
 import grounabi_restaurant_api_base as base
@@ -77,10 +78,10 @@ class GrounabiOuenAPI(base.GrounabiRestaurantAPIBase):
     loop.stop()
   """
 
-  def showResult(self, result):
+  def showResult(self, data):
 
     # 取得した結果を解析
-    data = json.loads( result.read().decode('utf-8') )
+    #data = json.loads( result.read().decode('utf-8') )
     #print(data)
 
     # エラーの場合

@@ -4,10 +4,17 @@ __author__ = 'tie304184'
 import urllib
 import urllib.request
 import urllib.parse
+import sys
 
 class GrounabiRestaurantAPIBase(object):
 
-  def __init__(self, url, apikey):
+  def __init__(self, url=None, apikey=None):
+    if url == None:
+      print("Please set the API URL! The system will exit. ")
+      sys.exit(0)
+    if apikey == None:
+      print("Please set the API key! The system will exit. ")
+      sys.exit(0)
     self.apikey = apikey
     self.url = url
     self.query = None

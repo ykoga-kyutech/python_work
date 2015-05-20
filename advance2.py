@@ -27,12 +27,12 @@ if __name__ == '__main__':
   api = None
   try:
       if len(sys.argv) != 2:
-        print("Example1: $ python advance3.py 居酒屋")
-        print("Example2: $ python advance3.py Dining")
+        print("Example1: $ python advance2.py 居酒屋")
+        print("Example2: $ python advance2.py Dining")
         sys.exit(0)
       else:
         # 店舗名をコマンドライン引数から貰う（日本語/英語）
-        name = sys.argv[1]
+        c
         name.encode('ascii', 'strict')
         # ぐるなびレストランAPIアクセス用（英語）
         api = gb_api.GrounabiBilingualRestaurantAPI(urlname_bilin_restsearch, keyid)

@@ -5,11 +5,9 @@ __author__ = 'tie304184'
 応用問題5.
 店舗名・リンク・画像・応援の最低4点を含むhtmlページ
 (上位3件のみで可)を作成し、ブラウザでページを開け
-参考URL-> http://programminghistorian.org/lessons/creating-and-viewing-html-files-with-python
-(ただしPython2のようなので注意)
 の解答。
 
-jinja2モジュールのインストールが必要。
+・jinja2モジュールのインストールが必要。
 $ pip install jinja2
 """
 
@@ -18,17 +16,29 @@ import grounabi_ouen_api as go_api
 import gnavi_ouen_entity as oe
 import webbrowser
 from jinja2 import Environment, FileSystemLoader
+import yaml
 
 if __name__ == '__main__':
 
-  # APIアクセスキー
-  keyid = "b05b70882f1fca7ba0758afcba03a146"
+  # APIアクセスキーを含む設定ファイル
+  setting_file = "advance_settings.yaml"
   # エンドポイントURL
   url_ouen = "http://api.gnavi.co.jp/ouen/ver1/PhotoSearch/"
   # 出力HTML
   output_html = "advance5.html"
   # 出力HTMLのテンプレート
   output_template = "advance5_template.html"
+
+  # 設定ファイルからAPIキーを読み込む
+  try:
+    with open(setting_file, 'r') as f:
+      data = yaml.load(f)  # 読み込む
+      keyid = data['keyid']
+  except FileNotFoundError as e:
+    print(setting_file+"が見つかりませんでした。")
+    print("実行には"+setting_file+"が必要です。README.mdを参照してください。")
+    print("終了します。")
+    sys.exit(0)
 
   # 店舗名をコマンドライン引数から貰う
   if len(sys.argv) == 2 :
@@ -53,7 +63,7 @@ if __name__ == '__main__':
   result_ouen = api_ouen.execute()
 
   # デコード
-  data_ouen = api_ouen.decode2JSON(result_ouen)
+  data_ouen = go_api.GrounabiOuenAPI.decode2JSON(result_ouen)
 
   # 結果出力
   if result_ouen is not None:
@@ -84,6 +94,6 @@ if __name__ == '__main__':
     # ページを開く
     webbrowser.open_new_tab(output_html)
 
-    print("結果が別ウィンドウで表示されました")
+    print("結果がWebブラウザに表示されました")
   else:
     print("APIアクセスに失敗しました。")

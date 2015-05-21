@@ -11,9 +11,6 @@ class GrounabiRestaurantAPI(base.GrounabiRestaurantAPIBase):
 
   def showResult(self, data):
 
-    # 取得した結果を解析
-    #data = json.loads( result.read().decode('utf-8') )
-
     # エラーの場合
     if "error" in data :
       if "message" in data :
@@ -55,36 +52,36 @@ class GrounabiRestaurantAPI(base.GrounabiRestaurantAPIBase):
       access_walk          = ""
       code_category_name_s = []
       # 店舗名
-      if "name" in rest and self.is_str( rest["name"] ) :
+      if "name" in rest and base.GrounabiRestaurantAPIBase.is_str( rest["name"] ) :
         name = u"{0}".format( rest["name"] )
       line.append( name )
       # 店舗URL
-      if "url" in rest and self.is_str( rest["url"] ) :
+      if "url" in rest and base.GrounabiRestaurantAPIBase.is_str( rest["url"] ) :
         url = rest["url"]
       line.append( url )
       # 店舗画像URL
       if "image_url" in rest :
         access = rest["image_url"]
-        if "shop_image1" in access and self.is_str( access["shop_image1"] ) :
+        if "shop_image1" in access and base.GrounabiRestaurantAPIBase.is_str( access["shop_image1"] ) :
           shop_image_url = u"{0}".format( access["shop_image1"] )
       line.append( shop_image_url )
       # アクセス
       if "access" in rest :
         access = rest["access"]
         # 最寄の路線
-        if "line" in access and self.is_str( access["line"] ) :
+        if "line" in access and base.GrounabiRestaurantAPIBase.is_str( access["line"] ) :
           access_line = u"{0}".format( access["line"] )
         # 最寄の駅
-        if "station" in access and self.is_str( access["station"] ) :
+        if "station" in access and base.GrounabiRestaurantAPIBase.is_str( access["station"] ) :
           access_station = u"{0}".format( access["station"] )
         # 最寄駅から店までの時間
-        if "walk"    in access and self.is_str( access["walk"] ) :
+        if "walk"    in access and base.GrounabiRestaurantAPIBase.is_str( access["walk"] ) :
           access_walk = u"{0}分".format( access["walk"] )
       line.extend( [ access_line, access_station, access_walk ] )
       # 店舗の小業態
       if "code" in rest and "category_name_s" in rest["code"] :
         for category_name_s in rest["code"]["category_name_s"] :
-          if self.is_str( category_name_s ) :
+          if base.GrounabiRestaurantAPIBase.is_str( category_name_s ) :
             code_category_name_s.append( u"{0}".format( category_name_s ) )
       line.extend( code_category_name_s )
       # タブ区切りで出力

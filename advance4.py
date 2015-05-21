@@ -12,16 +12,27 @@ __author__ = 'tie304184'
 
 import sys
 import grounabi_ouen_api as g_api
-
-def callback():
-    print("callback called")
+import  grounabi_restaurant_api_base as base_api
+import yaml
 
 if __name__ == '__main__':
 
-  # APIアクセスキー
-  keyid = "b05b70882f1fca7ba0758afcba03a146"
+  # APIアクセスキーを含む設定ファイル
+  setting_file = "advance_settings.yaml"
   # エンドポイントURL
   url = "http://api.gnavi.co.jp/ouen/ver1/PhotoSearch/"
+
+  # 設定ファイルからAPIキーを読み込む
+  keyid = ""
+  try:
+    with open(setting_file, 'r') as f:
+      data = yaml.load(f)  # 読み込む
+      keyid = data['keyid']
+  except FileNotFoundError as e:
+    print(setting_file+"が見つかりませんでした。")
+    print("実行には"+setting_file+"が必要です。README.mdを参照してください。")
+    print("終了します。")
+    sys.exit(0)
 
   # ぐるなびレストランAPIアクセス用
   api = g_api.GrounabiOuenAPI(url, keyid)
@@ -37,7 +48,6 @@ if __name__ == '__main__':
     ( "format", "json" ),
     ( "keyid", keyid ),
     ( "shop_name", name)
-    #( "callback", callback )
   ]
 
   # set query
@@ -48,6 +58,6 @@ if __name__ == '__main__':
 
   # show result
   if data is not None:
-    api.showResult(api.decode2JSON(data))
+    api.showResult(base_api.GrounabiRestaurantAPIBase.decode2JSON(data))
   else:
     print("APIアクセスに失敗しました。")

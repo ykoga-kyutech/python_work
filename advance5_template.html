@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
 </head>
 <body>
 　<center>
-  <p>こんにちわ, {{ title }} {{shop_list.title}}</p>
+  <p>{{ title }}</p>
   {% for shop in shop_list %}
         <h1>{{ shop.name }}</h1>
         <a href={{ shop.shop_url }}>{{ "詳細を見る"  }}</a>

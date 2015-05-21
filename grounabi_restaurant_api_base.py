@@ -26,17 +26,6 @@ class GrounabiRestaurantAPIBase(object):
   def getQuery(self):
     return self.query
 
-  """
-  def createQuery(self, q):
-    query = [
-      ( "format", "json" ),
-      ( "keyid", keyid )
-      #( "name", name )
-    ]
-    query.append()
-    return query
-  """
-
   def execute(self):
     # URL生成
     data = urllib.parse.urlencode( self.query )
@@ -44,18 +33,19 @@ class GrounabiRestaurantAPIBase(object):
     #print(url)
     # API実行
     try :
-      result = urllib.request.urlopen(url)
-      return result
+      return urllib.request.urlopen(url)
     except ValueError :
       return None
 
-  def decode2JSON(self, result):
+  @staticmethod
+  def decode2JSON(result):
     return json.loads( result.read().decode('utf-8') )
 
   ####
   # 変数の型が文字列かどうかチェック
   ####
-  def is_str(self, data = None ) :
+  @staticmethod
+  def is_str(data = None ) :
     if isinstance( data, str ): # or isinstance( data, unicode )
       return True
     else :

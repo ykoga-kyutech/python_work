@@ -1,2 +1,7 @@
+__pycache__/
 .git/
 .idea/
+.idea/workspace.xml
+basic_output/
+advance5.html
+settings.yaml

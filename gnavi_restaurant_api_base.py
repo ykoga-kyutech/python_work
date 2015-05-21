@@ -7,7 +7,7 @@ import urllib.parse
 import sys
 import json
 
-class GrounabiRestaurantAPIBase(object):
+class GnaviRestaurantAPIBase(object):
 
   def __init__(self, url=None, apikey=None):
     if url == None:

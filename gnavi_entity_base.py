@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'tie304184'
 
-class GNaviEntity(object):
+class GnaviEntity(object):
     def __init__(self):
         self.json_data = None
     def getEntity(self):

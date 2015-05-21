@@ -12,7 +12,8 @@ $ pip install jinja2
 """
 
 import sys
-import grounabi_ouen_api as go_api
+import gnavi_ouen_api as go_api
+import  gnavi_restaurant_api_base as base_api
 import gnavi_ouen_entity as oe
 import webbrowser
 from jinja2 import Environment, FileSystemLoader
@@ -48,7 +49,7 @@ if __name__ == '__main__':
     sys.exit(0)
 
   # ぐるなび口コミAPIアクセス用
-  api_ouen = go_api.GrounabiOuenAPI(url_ouen, keyid)
+  api_ouen = go_api.GnaviOuenAPI(url_ouen, keyid)
 
   query_ouen = [
     ( "format", "json" ),
@@ -63,14 +64,14 @@ if __name__ == '__main__':
   result_ouen = api_ouen.execute()
 
   # デコード
-  data_ouen = go_api.GrounabiOuenAPI.decode2JSON(result_ouen)
+  data_ouen = base_api.GnaviRestaurantAPIBase.decode2JSON(result_ouen)
 
   # 結果出力
   if result_ouen is not None:
     #api_ouen.showResult(data_ouen)
 
     # TODO エンティティはAPIがもつべき?
-    entity = oe.GNaviOuenEntity()
+    entity = oe.GnaviOuenEntity()
     entity.setEntity(data_ouen)
 
     # テンプレートファイルを指定

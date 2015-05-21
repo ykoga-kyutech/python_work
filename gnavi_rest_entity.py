@@ -3,9 +3,9 @@ __author__ = 'tie304184'
 
 import gnavi_entity_base as base
 
-class GNaviRestaurantEntity(base.GNaviEntity):
+class GnaviRestaurantEntity(base.GnaviEntity):
     def __init__(self):
-        super(GNaviRestaurantEntity, self).__init__()
+        super(GnaviRestaurantEntity, self).__init__()
         self.name                 = list()
         self.url                  = list()
         self.shop_image_url       = list()

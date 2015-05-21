@@ -11,8 +11,8 @@ __author__ = 'tie304184'
 """
 
 import sys
-import grounabi_ouen_api as g_api
-import  grounabi_restaurant_api_base as base_api
+import gnavi_ouen_api as g_api
+import  gnavi_restaurant_api_base as base_api
 import yaml
 
 if __name__ == '__main__':
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     sys.exit(0)
 
   # ぐるなびレストランAPIアクセス用
-  api = g_api.GrounabiOuenAPI(url, keyid)
+  api = g_api.GnaviOuenAPI(url, keyid)
 
   if len(sys.argv) == 2 :
     name = sys.argv[1]
@@ -58,6 +58,6 @@ if __name__ == '__main__':
 
   # show result
   if data is not None:
-    api.showResult(base_api.GrounabiRestaurantAPIBase.decode2JSON(data))
+    api.showResult(base_api.GnaviRestaurantAPIBase.decode2JSON(data))
   else:
     print("APIアクセスに失敗しました。")

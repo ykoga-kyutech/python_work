@@ -9,8 +9,8 @@ __author__ = 'tie304184'
 の解答。
 """
 import sys
-import grounabi_restaurant_api as g_api
-import grounabi_restaurant_api_base as base_api
+import gnavi_restaurant_api as g_api
+import gnavi_restaurant_api_base as base_api
 import yaml
 
 if __name__ == '__main__':
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     sys.exit(0)
 
   # ぐるなびレストランAPIアクセス用
-  api = g_api.GrounabiRestaurantAPI(url, keyid)
+  api = g_api.GnaviRestaurantAPI(url, keyid)
 
   # create a query
   query = [
@@ -56,6 +56,6 @@ if __name__ == '__main__':
 
   # show result
   if result is not None:
-    api.showResult(base_api.GrounabiRestaurantAPIBase.decode2JSON(result))
+    api.showResult(base_api.GnaviRestaurantAPIBase.decode2JSON(result))
   else:
     print("APIアクセスに失敗しました。")

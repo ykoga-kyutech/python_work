@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 __author__ = 'tie304184'
 
-import grounabi_restaurant_api_base as base
+import gnavi_restaurant_api_base as base
 import json
 
-class GrounabiBilingualRestaurantAPI(base.GrounabiRestaurantAPIBase):
+class GnaviBilingualRestaurantAPI(base.GnaviRestaurantAPIBase):
 
   def __init__(self, url, apikey):
-    super(GrounabiBilingualRestaurantAPI, self).__init__(url, apikey)
+    super(GnaviBilingualRestaurantAPI, self).__init__(url, apikey)
 
   def showResult(self, result):
 

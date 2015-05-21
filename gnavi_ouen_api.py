@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 __author__ = 'tie304184'
 
-import grounabi_restaurant_api_base as base
+import gnavi_restaurant_api_base as base
 import json
 import asyncio
 from asyncio.futures import Future
 from functools import partial
 
-class GrounabiOuenAPI(base.GrounabiRestaurantAPIBase):
+class GnaviOuenAPI(base.GnaviRestaurantAPIBase):
 
   def __init__(self, url, apikey):
-    super(GrounabiOuenAPI, self).__init__(url, apikey)
+    super(GnaviOuenAPI, self).__init__(url, apikey)
 
   @asyncio.coroutine
   def showOuen(self, data, i):
@@ -21,10 +21,12 @@ class GrounabiOuenAPI(base.GrounabiRestaurantAPIBase):
     mname                = ""
     comment              = ""
 
+    """
     # 店舗番号
     if "shop_id" in photo and self.is_str( photo["shop_id"] ) :
         id = photo["shop_id"]
     line.append( id )
+   """
 
     # 店舗名
     if "shop_name" in photo and self.is_str( photo["shop_name"] ) :
@@ -112,7 +114,7 @@ class GrounabiOuenAPI(base.GrounabiRestaurantAPIBase):
     print("----")
 
     # 出力件数
-    disp_count = 5
+    disp_count = 3
 
     # 応援口コミデータ取得（並列で取得）
     loop = asyncio.get_event_loop()

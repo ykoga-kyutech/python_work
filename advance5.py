@@ -8,6 +8,9 @@ __author__ = 'tie304184'
 参考URL-> http://programminghistorian.org/lessons/creating-and-viewing-html-files-with-python
 (ただしPython2のようなので注意)
 の解答。
+
+jinja2モジュールのインストールが必要。
+$ pip install jinja2
 """
 
 import sys
@@ -43,44 +46,44 @@ if __name__ == '__main__':
     ( "shop_name", name)
   ]
 
-  # set query
+  # クエリをセット
   api_ouen.setQuery(query_ouen)
 
-  # get result
+  # API通信、結果を取得
   result_ouen = api_ouen.execute()
 
-  # decode
+  # デコード
   data_ouen = api_ouen.decode2JSON(result_ouen)
 
-  # show result
-  """
+  # 結果出力
   if result_ouen is not None:
-    api_ouen.showResult(data_ouen)
+    #api_ouen.showResult(data_ouen)
+
+    # TODO エンティティはAPIがもつべき?
+    entity = oe.GNaviOuenEntity()
+    entity.setEntity(data_ouen)
+
+    # テンプレートファイルを指定
+    env = Environment(loader=FileSystemLoader('./', encoding='utf8'))
+    tpl = env.get_template(output_template)
+
+    # テンプレートへ挿入するデータの作成
+    title = name+"の検索結果"
+    shop_list = []
+    for name, shop_url, image_url, comment in zip(entity.name, entity.shop_url, entity.image_url, entity.comment):
+          shop_list.append({'name':name, 'comment':comment, 'shop_url':shop_url, 'image':image_url})
+
+    # テンプレートへの挿入
+    html = tpl.render({'title':title, 'shop_list':shop_list})
+
+    # ファイルへの書き込み
+    tmpfile = open(output_html, 'w') #書き込みモードで開く
+    tmpfile.write(html) #.encode('utf-8')
+    tmpfile.close()
+
+    # ページを開く
+    webbrowser.open_new_tab(output_html)
+
+    print("結果が別ウィンドウで表示されました")
   else:
     print("APIアクセスに失敗しました。")
-  """
-
-  # TODO should move it to the ouen API ?
-  entity = oe.GNaviOuenEntity()
-  entity.setEntity(data_ouen)
-
-  #テンプレートファイルを指定
-  env = Environment(loader=FileSystemLoader('./', encoding='utf8'))
-  tpl = env.get_template(output_template)
-
-  #テンプレートへ挿入するデータの作成
-  title = name+"の検索結果"
-
-  shop_list = []
-  for name, shop_url, image_url, comment in zip(entity.name, entity.shop_url, entity.image_url, entity.comment):
-        shop_list.append({'title':name, 'comment':comment, 'shop_url':shop_url, 'image':image_url})
-
-  #テンプレートへの挿入
-  html = tpl.render({'title':title, 'shop_list':shop_list})
-
-  #ファイルへの書き込み
-  tmpfile = open(output_html, 'w') #書き込みモードで開く
-  tmpfile.write(html) #.encode('utf-8')
-  tmpfile.close()
-
-  webbrowser.open_new_tab(output_html)

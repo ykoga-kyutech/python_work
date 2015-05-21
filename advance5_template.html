@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
+<head>
     <title>{{title}}</title>
 </head>
 <body>
-    <center>
-    {% for shop in shop_list %}
-        <h1>{{ shop.title }}</h1>
+　<center>
+  <p>こんにちわ, {{ title }} {{shop_list.title}}</p>
+  {% for shop in shop_list %}
+        <h1>{{ shop.name }}</h1>
         <a href={{ shop.shop_url }}>{{ "詳細を見る"  }}</a>
         <p>
             コメント：「{{ shop.comment|safe }}」
         </p>
         <img src={{ shop.image }} width="300" height="300" />
     {% endfor %}
-    </center>
+   </center>
 </body>
 </html>
